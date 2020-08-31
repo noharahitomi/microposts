@@ -18,13 +18,15 @@ class CreateUserFollowTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('follow_id');
             $table->timestamps();
-            
-            //外部キー制約
+
+            // 外部キー制約
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('follow_id')->references('id')->on('users')->onDelete('cascade');
-            
-            //user_idとfollow_idの組み合わせの重複を許さない
+
+            // user_idとfollow_idの組み合わせの重複を許さない
             $table->unique(['user_id', 'follow_id']);
+            
+            Schema::rename('=user_follow', 'user_follow');
         });
     }
 
@@ -36,5 +38,6 @@ class CreateUserFollowTable extends Migration
     public function down()
     {
         Schema::dropIfExists('=user_follow');
+        Schema::rename('=user_follow', 'user_follow');
     }
 }

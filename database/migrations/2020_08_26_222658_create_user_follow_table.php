@@ -13,7 +13,7 @@ class CreateUserFollowTable extends Migration
      */
     public function up()
     {
-        Schema::create('=user_follow', function (Blueprint $table) {
+        Schema::create('user_follow', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('follow_id');
@@ -25,8 +25,6 @@ class CreateUserFollowTable extends Migration
 
             // user_idとfollow_idの組み合わせの重複を許さない
             $table->unique(['user_id', 'follow_id']);
-            
-            Schema::rename('=user_follow', 'user_follow');
         });
     }
 
@@ -37,7 +35,6 @@ class CreateUserFollowTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('=user_follow');
-        Schema::rename('=user_follow', 'user_follow');
+        Schema::dropIfExists('user_follow');
     }
 }

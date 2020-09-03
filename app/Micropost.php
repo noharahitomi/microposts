@@ -33,4 +33,10 @@ class Micropost extends Model
             'microposts' => $microposts,
         ]);
     }
+    
+    //この投稿をお気に入りしているユーザ。
+    public function favorite_users()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'micropost_id', 'user_id');
+    }
 }

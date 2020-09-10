@@ -24,6 +24,6 @@ class UserFollowController extends Controller
     
     public function loadRelationshipCounts()
     {
-        $this->loadCount(['icroposts', 'followings', 'followers']);
+        $this->loadCount(['microposts', 'followings', 'followers', 'favorites']);
     }
 }

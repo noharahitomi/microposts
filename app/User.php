@@ -117,6 +117,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Micropost::class, 'favorites', 'user_id', 'micropost_id');
     }
     
+    public function favorite_now($micropostId)
+    {
+        //お気に入りしている投稿の中に当該の投稿idがあるのか
+        return $this->favorites()->where('micropost_id', $micropostId)->exists();
+    }
+    
     public function favorite($micropostId)
     {
         //すでにお気に入りにしているかの確認
@@ -146,11 +152,5 @@ class User extends Authenticatable
             //お気に入りしていなければ、何もしない
             return false;
         }
-    }
-    
-    public function favorite_now($micropostId)
-    {
-        //お気に入りしているものの中に、micropostIdが存在するか
-        return $this->favorites()->where('micropost_id', $micropostId)->exists();
     }
 }

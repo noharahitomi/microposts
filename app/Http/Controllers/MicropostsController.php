@@ -52,4 +52,24 @@ class MicropostsController extends Controller
         // 前のURLへリダイレクトさせる
         return back();
     }
+    
+    public function favoritrite_index()
+    {
+        $data=[];
+        if(\Auth::check()){
+            //認証済みユーザを取得
+            $user=\Auth::user();
+            //ユーザがお気に入り中の投稿の一覧を作成日時の降順で取得
+            $microposts = $user->feed_favorite_maicroposts()->orderBy('created_at', 'desc')->paginate(10);
+            
+            $data=[
+                'user' => $user,
+                'microposts'=>$microposts,
+            ];
+        }
+        
+        //favoriteビューでそれらを表示
+        return view('users.favorites', $data);
+        
+    }
 }
